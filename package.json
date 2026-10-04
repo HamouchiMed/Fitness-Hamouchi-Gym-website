@@ -1,0 +1,27 @@
+{
+  "name": "fitness-hamouchi-gym-website",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Trilingual (FR/AR/EN) website for Fitness Hamouchi Gym and Club Nour, Berrechid, Morocco. Static, dependency-free, built for local SEO.",
+  "type": "module",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "node build.mjs",
+    "media": "node scripts/media.mjs",
+    "prebuild": "node scripts/ensure-media.mjs",
+    "start": "node scripts/serve.mjs",
+    "dev": "node scripts/dev.mjs",
+    "check": "node scripts/check.mjs"
+  },
+  "keywords": [
+    "gym",
+    "fitness",
+    "berrechid",
+    "morocco",
+    "static-site",
+    "seo"
+  ],
+  "license": "UNLICENSED"
+}
