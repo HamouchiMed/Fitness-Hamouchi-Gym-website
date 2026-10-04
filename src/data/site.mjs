@@ -55,13 +55,61 @@ export const verified = (v) => (isTodo(v) || v == null || v === '' ? undefined :
 // Site-wide
 // ─────────────────────────────────────────────────────────────────────────────
 
+/**
+ * Works out the canonical origin at build time.
+ *
+ * Order of preference:
+ *   1. SITE_URL, if you set it yourself (any host, any CI).
+ *   2. The URL the hosting platform injects — Vercel sets
+ *      VERCEL_PROJECT_PRODUCTION_URL (the stable production domain) and
+ *      VERCEL_URL (this specific deployment). Netlify sets URL.
+ *   3. The placeholder below, flagged on the build checklist.
+ *
+ * Why this matters: every canonical tag, every hreflang alternate and every
+ * sitemap entry is absolute and built from this value. If it names a domain
+ * you do not actually own, you are telling Google "the real version of this
+ * page lives somewhere else" — and it will decline to index the site it is
+ * actually looking at. Resolving it from the platform means a first deploy is
+ * correctly self-canonical before you have bought a domain at all.
+ *
+ * Preview deployments are unaffected: Vercel already serves those with
+ * `x-robots-tag: noindex`, so they stay out of the index regardless.
+ */
+function resolveOrigin() {
+  const fromEnv =
+    process.env.SITE_URL ||
+    process.env.VERCEL_PROJECT_PRODUCTION_URL ||
+    process.env.VERCEL_URL ||
+    process.env.URL; // Netlify
+
+  if (fromEnv) {
+    const origin = `https://${String(fromEnv)
+      .replace(/^https?:\/\//, '')
+      .replace(/\/+$/, '')}`;
+
+    // Still worth flagging: a *.vercel.app address works, but a real domain is
+    // what you want on business cards and in your Google Business Profile.
+    todos.push({
+      value: origin,
+      note:
+        'Using the deployment URL the host provided. Once you own a domain, set site.url to it ' +
+        '(or set a SITE_URL environment variable) and redeploy.',
+    });
+    return origin;
+  }
+
+  return TODO(
+    'https://fitnesshamouchi.ma',
+    'Buy the domain, then set the real origin here (no trailing slash). A deploy on Vercel or Netlify fills this in automatically.'
+  );
+}
+
 export const site = {
   /**
    * Canonical origin, no trailing slash. Every absolute URL, the sitemap and
-   * every canonical tag derive from this. Must match the domain you deploy to,
-   * or canonicals will point at the wrong host and the site will not index.
+   * every canonical tag derive from this. See resolveOrigin above.
    */
-  url: TODO('https://fitnesshamouchi.ma', 'Buy the domain, then set the real origin here (no trailing slash).'),
+  url: resolveOrigin(),
 
   /** Short brand used in nav, logo and the tail of every <title>. */
   brand: 'Fitness Hamouchi',

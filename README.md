@@ -156,15 +156,44 @@ and the fastest way to lose a member's trust.
 
 ### Vercel (recommended — `vercel.json` is already configured)
 
-1. Push this repository to GitHub.
-2. In Vercel: **New Project** → import the repo.
-3. Build command `npm run build`, output directory `dist`. Vercel reads these
-   from `vercel.json` automatically.
-4. Add your domain under **Settings → Domains**.
-5. Set `site.url` in `src/data/site.mjs` to that domain and redeploy.
+1. Go to [vercel.com/new](https://vercel.com/new) and sign in with GitHub.
+2. Import **`HamouchiMed/Fitness-Hamouchi-Gym-website`**.
+3. Change **Branch** to `claude/vibrant-fermi-9bvpqd` (or merge it to `main`
+   first and deploy that).
+4. Leave every build setting alone — Vercel reads them from `vercel.json`.
+   Do **not** add an install command; the project has no dependencies.
+5. Click **Deploy**.
 
-`vercel.json` already handles clean URLs, trailing slashes, `/fr/*` → `/*`
-redirects, cache headers per asset type, and security headers.
+That is the whole process. There is nothing to configure, because:
+
+- **The images are committed.** Vercel's build container has no ImageMagick, so
+  `npm run media` cannot run there. The generated images are in git on purpose,
+  and `prebuild` detects them and does nothing. (Verified by building in a
+  clean clone with `convert` and `ffmpeg` removed from `PATH`.)
+- **The site URL fills itself in.** `site.url` reads
+  `VERCEL_PROJECT_PRODUCTION_URL` at build time, so canonicals, hreflang and
+  the sitemap all point at your real deployment from the first build, before
+  you own a domain.
+- **No `npm install` is needed.** Zero dependencies, Node 18+.
+
+`vercel.json` handles clean URLs, trailing slashes, `/fr/*` → `/*` redirects,
+per-asset cache headers, and security headers.
+
+#### Connecting your own domain
+
+1. **Settings → Domains** in the Vercel project, add the domain.
+2. Point the DNS records where Vercel tells you (at your registrar).
+3. Then **either** set `site.url` in `src/data/site.mjs` to the new domain and
+   push, **or** add a `SITE_URL` environment variable in Vercel and redeploy.
+   Either one takes precedence over the auto-detected URL.
+
+Do step 3 before submitting anything to Google Search Console — otherwise your
+sitemap will advertise the `.vercel.app` address.
+
+### Automatic redeploys
+
+Once imported, every push to that branch redeploys. So the workflow for
+updating prices, hours or photos is just: edit, commit, push.
 
 ### Anywhere else
 
