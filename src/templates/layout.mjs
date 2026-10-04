@@ -101,8 +101,12 @@ ${verified(site.verification.google) ? `<meta name="google-site-verification" co
 ${verified(site.verification.bing) ? `<meta name="msvalidate.01" content="${esc(verified(site.verification.bing))}">` : ''}
 
 <!-- Icons and installability -->
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/favicon.ico" sizes="32x32">
+<!-- Icons are rendered from the logo artwork (see makeIcons in
+     scripts/media.mjs). There is no SVG favicon: the logo is a detailed raster
+     illustration with no vector source, and a hand-drawn SVG stand-in would
+     simply not be the brand's mark. -->
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 64x64">
+<link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="manifest" href="/manifest.webmanifest">
 <meta name="theme-color" content="#08080b">
@@ -161,21 +165,44 @@ function navItems(localeCode, content) {
   ].map((item) => ({ ...item, href: path(localeCode, content, item.key) }));
 }
 
-function logo(localeCode, content, { tag = 'a' } = {}) {
-  const inner = `<span class="logo__mark" aria-hidden="true">
-  <svg viewBox="0 0 40 40" width="36" height="36" fill="none">
-    <rect width="40" height="40" rx="10" fill="url(#lg)"/>
-    <path d="M11 14v12M29 14v12M11 20h18" stroke="#0a0a0c" stroke-width="3.2" stroke-linecap="round"/>
-    <path d="M8 17v6M32 17v6" stroke="#0a0a0c" stroke-width="2.2" stroke-linecap="round"/>
-    <defs><linearGradient id="lg" x1="0" y1="0" x2="40" y2="40">
-      <stop stop-color="#ff7a3d"/><stop offset="1" stop-color="#e02f2f"/>
-    </linearGradient></defs>
-  </svg>
-</span>
-<span class="logo__text">
-  <span class="logo__name">${esc(site.brand)}</span>
-  <span class="logo__sub">Berrechid</span>
-</span>`;
+/**
+ * The logo lockup.
+ *
+ * The supplied artwork already contains the words "Fitness Hamouchi Gym", so
+ * no HTML wordmark is rendered beside it — that would print the brand name
+ * twice. Only the locality is added, which the logo does not carry and which
+ * is worth having in the header of a local business site.
+ *
+ * Served as PNG with a WebP source: the logo needs an alpha channel over the
+ * near-black header, which rules out the JPEG fallback the photo pipeline
+ * emits, so it is generated separately (see makeLogo in scripts/media.mjs).
+ *
+ * The alt text carries the full legal name. That is the only place the brand
+ * name appears in the header markup, so it is doing real work for both screen
+ * readers and search engines — it is not decorative.
+ */
+function logo(localeCode, content, { tag = 'a', size = 'header' } = {}) {
+  const srcset = (ext) =>
+    [160, 320, 640].map((w) => `${asset(`img/logo-${w}.${ext}`)} ${w}w`).join(', ');
+
+  // Intrinsic dimensions from the artwork (1280×1150), scaled to the rendered
+  // size, so the box is reserved before the file loads and nothing shifts.
+  const displayWidth = size === 'footer' ? 150 : size === 'loader' ? 190 : 58;
+  const displayHeight = Math.round((displayWidth * 1150) / 1280);
+
+  const inner = `<picture class="logo__img">
+  <source type="image/webp" srcset="${srcset('webp')}" sizes="${displayWidth}px">
+  <img src="${asset('img/logo-320.png')}" srcset="${srcset('png')}" sizes="${displayWidth}px"
+       width="${displayWidth}" height="${displayHeight}"
+       alt="${esc(site.legalName)}"${size === 'header' ? ' fetchpriority="high"' : ' loading="lazy"'} decoding="async">
+</picture>${
+    size === 'header'
+      ? `
+<span class="logo__place">${esc(locations[0].locality)}</span>`
+      : ''
+  }`;
+
+  if (size !== 'header') return `<span class="logo logo--${size}">${inner}</span>`;
 
   return tag === 'a'
     ? `<a class="logo" href="${path(localeCode, content, 'home')}" aria-label="${esc(site.legalName)}">${inner}</a>`
@@ -302,7 +329,7 @@ function footer({ localeCode, content, alts }) {
   return `<footer class="site-footer">
   <div class="site-footer__top">
     <div class="site-footer__brand">
-      ${logo(localeCode, content, { tag: 'span' })}
+      ${logo(localeCode, content, { tag: 'span', size: 'footer' })}
       <p class="site-footer__tagline">${esc(content.footer.tagline)}</p>
       ${
         social.length
@@ -429,7 +456,7 @@ ${head({ localeCode, content, title, description, pathname, alts, schema, ogImag
      have asked for reduced motion. -->
 <div class="loader" data-loader aria-hidden="true">
   <div class="loader__inner">
-    <span class="loader__brand">${esc(site.brand)}</span>
+    ${logo(localeCode, content, { tag: 'span', size: 'loader' })}
     <span class="loader__bar"><i></i></span>
   </div>
 </div>

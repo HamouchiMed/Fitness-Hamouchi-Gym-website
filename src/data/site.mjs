@@ -196,49 +196,41 @@ export const locations = [
     name: 'Fitness Hamouchi Gym',
     /** Short label for nav, chips and breadcrumbs. */
     shortName: 'Fitness Hamouchi',
+    /**
+     * Former names of the SAME premises.
+     *
+     * The gym traded as "Club Nour" before rebranding, and that name still has
+     * a Facebook page, printed references and years of word of mouth behind
+     * it. People in Berrechid will go on searching for it for a long time.
+     *
+     * These feed `alternateName` in the structured data and a line of visible
+     * copy, so a search for the old name still resolves to this business
+     * instead of to nothing. Removing them would throw away real search
+     * traffic that costs nothing to keep.
+     */
+    formerNames: ['Club Nour', 'Club Nour Berrechid'],
     /** Appears after the name in titles: "Fitness Hamouchi Gym — Berrechid". */
     locality: 'Berrechid',
     region: 'Casablanca-Settat',
     country: 'MA',
     countryName: { fr: 'Maroc', ar: 'المغرب', en: 'Morocco' },
     street: TODO('Adresse à compléter', 'Street address exactly as it appears on your Google Business Profile.'),
-    postalCode: TODO('26100', 'Postal code for this club (Berrechid is 26100 — confirm).'),
-    tel: TODO('+212600000000', 'Phone for THIS club, E.164.'),
+    postalCode: TODO('26100', 'Postal code (Berrechid is 26100 — confirm).'),
+    tel: TODO('+212600000000', 'Phone number, E.164.'),
     /** Decimal degrees. Right-click the pin in Google Maps to copy them. */
-    geo: { lat: TODO('33.2655', 'Latitude of this club.'), lon: TODO('-7.5856', 'Longitude of this club.') },
+    geo: { lat: TODO('33.2655', 'Latitude of the gym.'), lon: TODO('-7.5856', 'Longitude of the gym.') },
     /** Paste the "share" link from your Google Business Profile. */
-    mapsUrl: TODO('', 'Google Maps share link for this club.'),
+    mapsUrl: TODO('', 'Google Maps share link.'),
     /** Paste the src of the Google Maps "embed a map" iframe. Empty = static fallback shown. */
-    mapsEmbed: TODO('', 'Google Maps embed URL for this club.'),
+    mapsEmbed: TODO('', 'Google Maps embed URL.'),
     hours: STANDARD_HOURS,
     /** Hero/gallery image basenames, resolved from src/assets/img. */
-    images: ['club-fitness-hamouchi-1', 'club-fitness-hamouchi-2', 'club-fitness-hamouchi-3'],
-    /** Which amenity keys from content.amenities this club has. */
-    amenities: ['musculation', 'cardio', 'crossTraining', 'coaching', 'vestiaires', 'douches', 'parking', 'wifi', 'climatisation', 'boutique'],
+    images: ['club-1', 'club-2', 'club-3', 'club-4'],
+    /** Which amenity keys from content.amenities the gym has. */
+    amenities: ['musculation', 'cardio', 'kickboxing', 'coaching', 'vestiaires', 'douches'],
     /** Which discipline slugs are taught here. */
-    disciplines: ['musculation', 'cross-training', 'cardio', 'boxe', 'coaching-personnel'],
+    disciplines: ['musculation', 'cardio', 'kickboxing', 'kickboxing-enfants', 'coaching-personnel'],
     audience: 'mixed', // 'mixed' | 'women' | 'men'
-  },
-  {
-    slug: 'club-nour',
-    primary: false,
-    name: 'Club Nour Berrechid',
-    shortName: 'Club Nour',
-    locality: 'Berrechid',
-    region: 'Casablanca-Settat',
-    country: 'MA',
-    countryName: { fr: 'Maroc', ar: 'المغرب', en: 'Morocco' },
-    street: TODO('Adresse à compléter', 'Street address for Club Nour.'),
-    postalCode: TODO('26100', 'Postal code for Club Nour.'),
-    tel: TODO('+212600000000', 'Phone for Club Nour, E.164.'),
-    geo: { lat: TODO('33.2655', 'Latitude of Club Nour.'), lon: TODO('-7.5856', 'Longitude of Club Nour.') },
-    mapsUrl: TODO('', 'Google Maps share link for Club Nour.'),
-    mapsEmbed: TODO('', 'Google Maps embed URL for Club Nour.'),
-    hours: STANDARD_HOURS,
-    images: ['club-nour-1', 'club-nour-2', 'club-nour-3'],
-    amenities: ['musculation', 'cardio', 'fitnessFemmes', 'aerobic', 'coaching', 'vestiaires', 'douches', 'parking'],
-    disciplines: ['musculation', 'cardio', 'fitness-femmes', 'aerobic', 'coaching-personnel'],
-    audience: 'mixed',
   },
 ];
 
@@ -306,10 +298,10 @@ export const plans = [
 // means publishing claims about your business that you have not checked.
 
 export const stats = {
-  members: TODO('500', 'Roughly how many active members across both clubs?'),
+  members: TODO('500', 'Roughly how many active members does the gym have?'),
   years: TODO('10', 'Years in business. Should agree with site.founded.'),
   coaches: TODO('6', 'How many coaches on the team?'),
-  surface: TODO('800', 'Total training surface in m², both clubs combined.'),
+  surface: TODO('800', 'Total training surface in m².'),
 };
 
 /**

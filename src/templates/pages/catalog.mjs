@@ -198,10 +198,12 @@ export function galleryPage({ localeCode, content, crumbs }) {
   // every discipline. Alt text is built from the subject so each image carries
   // a genuine description rather than a filename.
   const items = [
-    ...['gallery-1', 'gallery-2', 'gallery-3', 'gallery-4', 'gallery-5', 'gallery-6'].map((name) => ({
-      name,
-      alt: `${site.legalName} — ${p.title}`,
-    })),
+    // Every dedicated gallery slot the manifest declares, so adding a
+    // gallery-9 to media.mjs puts it on the page with no template change.
+    ...Object.keys(images)
+      .filter((name) => /^gallery-\d+$/.test(name))
+      .sort((a, b) => Number(a.split('-')[1]) - Number(b.split('-')[1]))
+      .map((name) => ({ name, alt: `${site.legalName} — ${p.title}` })),
     ...locations.flatMap((loc) =>
       loc.images.map((name) => ({ name, alt: `${loc.name}, ${loc.locality}` }))
     ),

@@ -45,7 +45,7 @@ export default {
     freeTrial: 'Séance d’essai gratuite',
     learnMore: 'En savoir plus',
     seeAll: 'Tout voir',
-    seeClub: 'Voir le club',
+    seeClub: 'Voir la salle',
     seePricing: 'Voir les tarifs',
     getDirections: 'Itinéraire',
     openingHours: 'Horaires',
@@ -77,7 +77,7 @@ export default {
     sitemapLabel: 'Plan du site',
     followUs: 'Suivez-nous',
     quickLinks: 'Navigation',
-    ourClubs: 'Nos clubs',
+    ourClubs: 'La salle',
     newsletterTitle: 'Conseils d’entraînement, une fois par mois',
     newsletterNote: 'Pas de spam. Désinscription en un clic.',
     emailPlaceholder: 'votre@email.com',
@@ -91,7 +91,7 @@ export default {
 
   nav: {
     home: 'Accueil',
-    clubs: 'Nos clubs',
+    clubs: 'La salle',
     disciplines: 'Cours',
     pricing: 'Tarifs',
     coach: 'Le coach',
@@ -109,7 +109,7 @@ export default {
       // it is not truncated in the results page.
       title: 'Salle de sport à Berrechid — Fitness Hamouchi Gym',
       description:
-        'Deux salles de sport à Berrechid : musculation, cross training, cardio, boxe et fitness femmes. Coachs diplômés, ouvert 7j/7. Séance d’essai gratuite.',
+        'Salle de sport à Berrechid : musculation, cardio et kickboxing, adultes et enfants. Coachs diplômés, matériel complet, ouvert 7j/7. Séance d’essai gratuite.',
       // Keywords a human would actually type. Used for internal tracking and
       // the content brief — not injected as a meta keywords tag, which Google
       // has ignored since 2009.
@@ -121,17 +121,18 @@ export default {
         'club nour berrechid',
         'fitness hamouchi',
         'coach sportif berrechid',
-        'salle de sport femme berrechid',
+        'kickboxing berrechid',
+        'kickboxing enfants berrechid',
       ],
     },
     hero: {
       // Split across lines so the display type can stagger them on reveal.
-      kicker: 'Berrechid · Deux clubs · Ouvert 7j/7',
+      kicker: 'Berrechid · Musculation · Kickboxing · 7j/7',
       titleLines: ['Deviens', 'la version', 'la plus forte', 'de toi'],
       lead:
-        'Musculation, cross training, cardio et boxe dans deux salles entièrement équipées à Berrechid. Des coachs qui corrigent ta technique, un programme qui te correspond, une ambiance qui te fait revenir.',
+        'Musculation, cardio et kickboxing dans une salle entièrement équipée à Berrechid. Des coachs qui corrigent ta technique, un programme qui te correspond, une ambiance qui te fait revenir.',
       primaryCta: 'Réserver ma séance gratuite',
-      secondaryCta: 'Découvrir les clubs',
+      secondaryCta: 'Découvrir la salle',
       scrollHint: 'Faites défiler',
     },
     stats: {
@@ -145,14 +146,14 @@ export default {
       kicker: 'Qui nous sommes',
       title: 'Une salle de quartier, des standards de compétition',
       body: [
-        'Fitness Hamouchi Gym est né à Berrechid d’une idée simple : on n’a pas besoin d’aller à Casablanca pour s’entraîner sérieusement. Deux clubs, du matériel qu’on remplace quand il s’use, et des coachs présents sur le plateau — pas derrière un comptoir.',
+        'Fitness Hamouchi Gym est né à Berrechid d’une idée simple : on n’a pas besoin d’aller à Casablanca pour s’entraîner sérieusement. Une salle complète, du matériel qu’on remplace quand il s’use, et des coachs présents sur le plateau — pas derrière un comptoir.',
         'Que tu pousses de la fonte depuis dix ans ou que tu n’aies jamais mis les pieds dans une salle, on commence là où tu en es. On t’explique les mouvements, on surveille ta posture, et on ajuste au fur et à mesure.',
       ],
       bullets: [
         'Bilan et programme personnalisé offerts à l’inscription',
         'Coach sur le plateau à toutes les heures d’ouverture',
         'Aucun frais d’adhésion caché, aucun engagement forcé',
-        'Espace et créneaux dédiés aux femmes',
+        'Kickboxing encadré, pour les adultes comme pour les enfants',
       ],
       cta: 'Rencontrer l’équipe',
     },
@@ -163,16 +164,16 @@ export default {
         'Cinq disciplines encadrées, toutes incluses dans l’abonnement. Change quand tu veux, combine comme tu veux.',
     },
     clubs: {
-      kicker: 'Nos adresses',
-      title: 'Deux clubs à Berrechid',
+      kicker: 'Notre adresse',
+      title: 'Notre salle à Berrechid',
       lead:
-        'Chaque club a son caractère et son matériel. Ton abonnement te donne accès à celui que tu choisis — demande-nous pour l’accès aux deux.',
+        'Un plateau musculation complet, une zone cardio et un espace kickboxing sur tatami. Viens voir en vrai : la première séance est offerte.',
     },
     coach: {
       kicker: 'L’encadrement',
       title: 'Tu ne t’entraînes jamais seul',
       body: [
-        'Khalid Hamouchi coache à Berrechid depuis plus de dix ans. Il a monté les deux clubs autour d’une conviction : un bon coach ne compte pas les répétitions, il corrige le mouvement avant que la blessure arrive.',
+        'Khalid Hamouchi coache à Berrechid depuis plus de dix ans. Il a monté la salle autour d’une conviction : un bon coach ne compte pas les répétitions, il corrige le mouvement avant que la blessure arrive.',
         'L’équipe suit la même règle. Si tu te trompes sur un soulevé de terre, quelqu’un viendra te le dire — gentiment, mais il viendra.',
       ],
       cta: 'En savoir plus sur l’équipe',
@@ -217,101 +218,67 @@ export default {
       tagline: 'Force, masse, définition',
       short: 'Charges libres, machines guidées et un plateau assez grand pour ne jamais attendre.',
       description:
-        'Le cœur de nos deux clubs. Racks à squat, bancs réglables, haltères jusqu’aux charges lourdes, poulies et machines guidées pour chaque groupe musculaire. Un coach passe sur le plateau pour corriger les placements et ajuster les charges.',
+        'Le cœur de la salle. Racks, bancs réglables, haltères jusqu’aux charges lourdes, poulies et machines guidées pour chaque groupe musculaire. Un coach passe sur le plateau pour corriger les placements et ajuster les charges.',
       bullets: [
-        'Racks, bancs et barres olympiques en nombre suffisant',
-        'Haltères par paliers de 2 kg jusqu’aux charges lourdes',
+        'Racks, bancs et barres en nombre suffisant',
+        'Haltères par paliers jusqu’aux charges lourdes',
         'Programme de prise de masse ou de sèche selon ton objectif',
-        'Suivi des charges et des mesures tous les mois',
+        'Suivi des charges et des mesures',
       ],
       image: 'discipline-musculation',
       level: 'Tous niveaux',
       duration: 'Accès libre',
     },
     {
-      slug: 'cross-training',
-      name: 'Cross training',
-      tagline: 'Intense, varié, jamais deux fois pareil',
-      short: 'Du conditionnement physique complet en circuits courts et intenses.',
-      description:
-        'Des séances qui mélangent haltérophilie, gymnastique et cardio dans un format chronométré. Chaque mouvement a une version adaptée, donc un débutant et un athlète peuvent faire la même séance côte à côte à leur niveau.',
-      bullets: [
-        'Séances encadrées en petit groupe',
-        'Kettlebells, cordes, pneus, anneaux et box',
-        'Chaque mouvement adapté à ton niveau',
-        'Excellent pour la perte de gras et le souffle',
-      ],
-      image: 'discipline-cross-training',
-      level: 'Adapté à tous',
-      duration: '60 min',
-    },
-    {
       slug: 'cardio',
-      name: 'Cardio',
+      name: 'Cardio & fitness',
       tagline: 'Souffle, endurance, perte de poids',
-      short: 'Tapis, vélos, rameurs et elliptiques, avec des protocoles qui marchent vraiment.',
+      short: 'Tapis, vélos et elliptiques, avec des protocoles qui marchent vraiment.',
       description:
         'Une zone cardio complète et, surtout, quelqu’un pour te dire quoi y faire. Marcher une heure en regardant son téléphone ne brûle pas grand-chose : on te donne des protocoles d’intervalles courts et efficaces.',
       bullets: [
-        'Tapis de course, vélos, rameurs, elliptiques',
+        'Tapis de course, vélos et elliptiques',
         'Protocoles HIIT et endurance fondamentale',
-        'Mesure des progrès en fréquence cardiaque',
         'Idéal en complément de la musculation',
+        'Une progression mesurée, pas improvisée',
       ],
       image: 'discipline-cardio',
       level: 'Tous niveaux',
       duration: 'Accès libre',
     },
     {
-      slug: 'boxe',
-      name: 'Boxe & sports de combat',
-      tagline: 'Technique, réflexes, confiance',
-      short: 'Sacs, pattes d’ours et travail technique encadré par un coach.',
+      slug: 'kickboxing',
+      name: 'Kickboxing',
+      tagline: 'Technique, explosivité, confiance',
+      short: 'Travail technique, sac et déplacements, encadré par un coach.',
       description:
-        'Du travail de pieds, des combinaisons, du sac et des pattes d’ours. On apprend à frapper proprement avant de frapper fort — c’est comme ça qu’on progresse sans se blesser les poignets et les épaules.',
+        'Du travail de jambes, des combinaisons poings-pieds, du sac et un gainage spécifique. On apprend à frapper proprement avant de frapper fort — c’est comme ça qu’on progresse sans se blesser les poignets et les chevilles.',
       bullets: [
-        'Sacs lourds, poires de vitesse, pattes d’ours',
-        'Travail technique et déplacements',
-        'Conditionnement spécifique au combat',
+        'Technique pieds-poings et déplacements',
+        'Travail au sac et aux pattes d’ours',
+        'Conditionnement physique spécifique au combat',
         'Aucune expérience requise pour commencer',
       ],
-      image: 'discipline-boxe',
+      image: 'discipline-kickboxing',
       level: 'Débutant à confirmé',
       duration: '60 min',
     },
     {
-      slug: 'fitness-femmes',
-      name: 'Fitness femmes',
-      tagline: 'Un espace, des créneaux, ton rythme',
-      short: 'Espace et horaires dédiés, encadrement féminin, zéro regard de travers.',
+      slug: 'kickboxing-enfants',
+      name: 'Kickboxing enfants',
+      tagline: 'Discipline, respect, énergie',
+      short: 'Un cours de kickboxing pensé pour les enfants, encadré et structuré.',
       description:
-        'Beaucoup de femmes veulent s’entraîner sérieusement sans se sentir observées. On a donc un espace dédié et des créneaux réservés, avec un encadrement qui connaît les objectifs spécifiques — renforcement, tonification, remise en forme après grossesse.',
+        'Les enfants y apprennent la technique, mais surtout le respect des règles, la maîtrise de soi et la confiance. Les séances se déroulent sur tatami, en groupe, avec un encadrement constant et une progression adaptée à leur âge.',
       bullets: [
-        'Espace et créneaux réservés aux femmes',
-        'Encadrement féminin',
-        'Renforcement, tonification, remise en forme',
-        'Cours collectifs d’aérobic et de stretching',
+        'Séances sur tatami, encadrées du début à la fin',
+        'Technique, coordination et motricité',
+        'La discipline et le respect avant la performance',
+        'Un cadre où les enfants se dépensent en sécurité',
       ],
-      image: 'discipline-fitness-femmes',
-      level: 'Tous niveaux',
-      duration: '45–60 min',
-    },
-    {
-      slug: 'aerobic',
-      name: 'Aérobic & cours collectifs',
-      tagline: 'Musique, groupe, bonne humeur',
-      short: 'Des cours collectifs qui passent vite et qui font transpirer.',
-      description:
-        'Aérobic, step, stretching et renforcement en musique. Le format collectif a un avantage que rien ne remplace : on vient parce que le groupe nous attend.',
-      bullets: [
-        'Plusieurs cours par semaine',
-        'Aérobic, step, stretching, renforcement',
-        'Inclus dans tous les abonnements',
-        'Ambiance collective et motivante',
-      ],
-      image: 'discipline-aerobic',
-      level: 'Tous niveaux',
-      duration: '45 min',
+      image: 'discipline-kickboxing-enfants',
+      level: 'Enfants',
+      duration: '60 min',
     },
     {
       slug: 'coaching-personnel',
@@ -336,16 +303,10 @@ export default {
   amenities: {
     musculation: 'Plateau musculation',
     cardio: 'Zone cardio',
-    crossTraining: 'Espace cross training',
-    fitnessFemmes: 'Espace femmes',
-    aerobic: 'Salle de cours collectifs',
+    kickboxing: 'Espace kickboxing',
     coaching: 'Coaching personnel',
     vestiaires: 'Vestiaires',
-    douches: 'Douches chaudes',
-    parking: 'Parking',
-    wifi: 'Wi-Fi gratuit',
-    climatisation: 'Climatisation',
-    boutique: 'Boutique & compléments',
+    douches: 'Douches',
   },
 
   // Plan copy, keyed by the ids used in data/site.mjs plans
@@ -409,7 +370,7 @@ export default {
       seo: {
         title: 'Nos salles de sport à Berrechid',
         description:
-          'Les deux clubs Fitness Hamouchi à Berrechid : adresses, horaires d’ouverture, équipements et disciplines de chaque salle. Ouvert 7j/7.',
+          'Fitness Hamouchi Gym à Berrechid, anciennement Club Nour : adresse, horaires d’ouverture, équipements et disciplines. Ouvert 7j/7.',
       },
       // Patterns for the per-club pages. {name} is the club's short name and
       // {city} its locality — leading with the city matches how people
@@ -419,20 +380,20 @@ export default {
       descPattern:
         '{name} : adresse, horaires, équipements et disciplines de cette salle de sport à {city}. Ouvert 7j/7, première séance d’essai gratuite.',
       kicker: 'Nos adresses',
-      title: 'Deux clubs, un même niveau d’exigence',
+      title: 'Une salle, un seul niveau d’exigence',
       lead:
-        'Choisis le club le plus proche de chez toi. Les deux sont équipés pour la musculation et le cardio, chacun avec sa spécialité.',
+        'Musculation, cardio et kickboxing au même endroit, à Berrechid. Anciennement Club Nour — même adresse, même équipe, nouveau nom.',
     },
     disciplines: {
       seo: {
-        title: 'Cours : musculation, cross training, boxe',
+        title: 'Cours : musculation, cardio, kickboxing',
         description:
-          'Musculation, cross training, cardio, boxe, fitness femmes et aérobic à Berrechid. Toutes les disciplines sont incluses dans l’abonnement et encadrées.',
+          'Musculation, cardio, kickboxing adultes et kickboxing enfants à Berrechid. Toutes les disciplines sont incluses dans l’abonnement et encadrées.',
       },
       kicker: 'Les disciplines',
       title: 'Tout est inclus dans l’abonnement',
       lead:
-        'Sept façons de t’entraîner chez nous. Aucune ne coûte un supplément : tu changes de discipline quand tu veux, tu les combines si ça te va.',
+        'Cinq façons de t’entraîner chez nous. Aucune ne coûte un supplément : tu changes de discipline quand tu veux, tu les combines si ça te va.',
     },
     pricing: {
       seo: {
@@ -498,7 +459,7 @@ export default {
       seo: {
         title: 'Galerie photo de nos salles',
         description:
-          'Photos de nos deux salles de sport à Berrechid : plateau musculation, zone cardio, espace cross training, vestiaires et cours collectifs.',
+          'Photos de notre salle de sport à Berrechid : plateau musculation, zone cardio, espace kickboxing et cours enfants.',
       },
       kicker: 'En images',
       title: 'Nos clubs en photos',
@@ -508,7 +469,7 @@ export default {
       seo: {
         title: 'Contact et accès',
         description:
-          'Contactez Fitness Hamouchi Gym à Berrechid : téléphone, WhatsApp, adresses des deux clubs, horaires d’ouverture et itinéraire.',
+          'Contactez Fitness Hamouchi Gym à Berrechid : téléphone, WhatsApp, adresse, horaires d’ouverture et itinéraire.',
       },
       kicker: 'Contact',
       title: 'Passe nous voir, ou écris-nous',
@@ -566,36 +527,36 @@ export default {
   // ───────────────────────────────────────────────────────────────────────────
   faq: [
     {
-      q: 'Où se trouvent vos salles de sport à Berrechid ?',
-      a: 'Nous avons deux clubs à Berrechid : Fitness Hamouchi Gym et Club Nour. Les deux adresses, avec itinéraire et horaires, sont sur la page Nos clubs. Appelez-nous si vous hésitez sur le club le plus proche de chez vous.',
+      q: 'Où se trouve votre salle de sport à Berrechid ?',
+      a: 'Fitness Hamouchi Gym se trouve à Berrechid. L’adresse exacte, l’itinéraire et les horaires sont sur la page Contact. Appelez-nous ou écrivez-nous sur WhatsApp si vous avez besoin d’aide pour nous trouver.',
+    },
+    {
+      q: 'Est-ce bien l’ancien Club Nour ?',
+      a: 'Oui. La salle s’appelait Club Nour, et c’est aujourd’hui Fitness Hamouchi Gym : même adresse, même équipe, nouveau nom. Si vous nous connaissiez sous l’ancien nom, vous êtes au bon endroit.',
     },
     {
       q: 'La première séance est-elle vraiment gratuite ?',
-      a: 'Oui. Vous venez, vous visitez le club, vous faites une séance complète avec un coach et vous repartez sans rien signer. Apportez simplement une tenue de sport, des baskets propres et une serviette.',
+      a: 'Oui. Vous venez, vous visitez la salle, vous faites une séance complète avec un coach et vous repartez sans rien signer. Apportez simplement une tenue de sport, des baskets propres et une serviette.',
     },
     {
       q: 'Combien coûte un abonnement ?',
-      a: 'Tous nos tarifs sont affichés sur la page Tarifs : séance unique, mensuel, trimestriel et annuel. Il n’y a aucun frais d’inscription ni frais de dossier, et les cours collectifs sont inclus dans tous les abonnements.',
+      a: 'Tous nos tarifs sont affichés sur la page Tarifs : séance unique, mensuel, trimestriel et annuel. Il n’y a aucun frais d’inscription ni frais de dossier.',
     },
     {
       q: 'Faut-il de l’expérience pour commencer ?',
       a: 'Non, et c’est le cas de la plupart de nos nouveaux membres. À l’inscription, un coach fait un bilan de votre niveau, vous montre les mouvements de base et vous remet un programme écrit adapté au nombre de séances que vous pouvez faire par semaine.',
     },
     {
-      q: 'Y a-t-il un espace réservé aux femmes ?',
-      a: 'Oui. Nous avons un espace dédié et des créneaux réservés aux femmes, avec un encadrement féminin. Les cours collectifs d’aérobic et de renforcement sont également programmés sur ces créneaux.',
+      q: 'Proposez-vous des cours de kickboxing pour les enfants ?',
+      a: 'Oui. Les cours enfants se déroulent sur tatami, en groupe et avec un encadrement constant. On y travaille la technique, la coordination et surtout la discipline et le respect. Contactez-nous pour connaître les créneaux et l’âge minimum.',
     },
     {
       q: 'Quels sont vos horaires d’ouverture ?',
       a: 'Nous ouvrons du lundi au vendredi de 6h à 23h, le samedi de 8h à 22h et le dimanche de 9h à 14h. Les horaires peuvent être adaptés pendant le Ramadan — nous les annonçons sur Instagram et Facebook.',
     },
     {
-      q: 'Proposez-vous du coaching personnel ?',
-      a: 'Oui, en séances individuelles avec programme écrit, conseils nutritionnels et suivi des mesures. C’est la formule à choisir pour un objectif précis et daté, comme une perte de poids importante ou un retour après blessure.',
-    },
-    {
       q: 'Que faut-il apporter pour s’entraîner ?',
-      a: 'Une tenue de sport, une paire de baskets propres réservée à la salle, une serviette et une bouteille d’eau. Les vestiaires, les casiers et les douches chaudes sont inclus dans l’abonnement.',
+      a: 'Une tenue de sport, une paire de baskets propres réservée à la salle, une serviette et une bouteille d’eau. Les vestiaires et les douches sont inclus dans l’abonnement.',
     },
   ],
 
@@ -643,7 +604,7 @@ export default {
 
 <h2>4. Les horaires, honnêtement</h2>
 <p>Vérifiez l’heure d’ouverture et surtout l’heure réelle de fermeture — certaines salles éteignent les lumières vingt minutes avant l’heure affichée. Si vous travaillez en horaires décalés, c’est le critère qui déterminera si vous venez trois fois par semaine ou deux fois par mois.</p>
-<p>Nos deux clubs ouvrent à 6h en semaine et ferment à 23h, précisément pour cette raison. Les horaires détaillés de chaque club sont sur la page {{clubs}}.</p>
+<p>Nous ouvrons à 6h en semaine et fermons à 23h, précisément pour cette raison. Les horaires détaillés sont sur la page {{clubs}}.</p>
 
 <h2>5. Ce que le tarif inclut vraiment</h2>
 <p>Un abonnement à 200 dirhams qui facture les cours collectifs en supplément coûte plus cher qu’un abonnement à 250 dirhams tout compris. Posez les questions dans l’ordre : frais d’inscription, frais de dossier, cours collectifs, accès aux autres clubs, bilan de départ.</p>
@@ -761,7 +722,7 @@ export default {
 
   // Footer
   footer: {
-    tagline: 'Deux salles de sport à Berrechid. Musculation, cross training, cardio, boxe et fitness femmes.',
+    tagline: 'Salle de sport à Berrechid, anciennement Club Nour. Musculation, cardio et kickboxing, adultes et enfants.',
     builtNote: 'Salle de sport à Berrechid, région Casablanca-Settat, Maroc.',
   },
 };

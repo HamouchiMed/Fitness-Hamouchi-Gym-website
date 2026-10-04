@@ -98,6 +98,7 @@ export function clubSchema(loc, { localeCode, content, imageUrls = [] }) {
     '@type': ['HealthClub', 'SportsActivityLocation'],
     '@id': ID.club(loc.slug),
     name: loc.name,
+    alternateName: loc.formerNames?.length ? loc.formerNames : undefined,
     url: absolute(path(localeCode, content, 'club', loc.slug)),
     parentOrganization: { '@id': ID.org() },
     address: addressOf(loc),
@@ -141,7 +142,16 @@ export function organizationSchema({ localeCode, content, logoUrl }) {
     '@type': ['Organization', 'SportsOrganization'],
     '@id': ID.org(),
     name: site.legalName,
-    alternateName: locations.map((l) => l.name),
+    /**
+     * Includes former trading names. The gym rebranded from "Club Nour", and
+     * that name still carries years of word of mouth and an existing Facebook
+     * page in Berrechid. Declaring it here lets Google connect searches for
+     * the old name to this business instead of to nothing.
+     */
+    alternateName: [
+      ...locations.map((l) => l.name),
+      ...locations.flatMap((l) => l.formerNames || []),
+    ].filter((v, i, a) => a.indexOf(v) === i && v !== site.legalName),
     url: absolute(path(localeCode, content, 'home')),
     logo: logoUrl ? { '@type': 'ImageObject', url: logoUrl } : undefined,
     image: logoUrl,

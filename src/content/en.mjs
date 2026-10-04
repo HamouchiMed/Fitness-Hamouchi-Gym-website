@@ -35,7 +35,7 @@ export default {
     freeTrial: 'Free trial session',
     learnMore: 'Learn more',
     seeAll: 'See all',
-    seeClub: 'View club',
+    seeClub: 'View the gym',
     seePricing: 'See pricing',
     getDirections: 'Directions',
     openingHours: 'Opening hours',
@@ -67,7 +67,7 @@ export default {
     sitemapLabel: 'Sitemap',
     followUs: 'Follow us',
     quickLinks: 'Navigation',
-    ourClubs: 'Our clubs',
+    ourClubs: 'The gym',
     newsletterTitle: 'Training tips, once a month',
     newsletterNote: 'No spam. Unsubscribe in one click.',
     emailPlaceholder: 'your@email.com',
@@ -81,7 +81,7 @@ export default {
 
   nav: {
     home: 'Home',
-    clubs: 'Our clubs',
+    clubs: 'The gym',
     disciplines: 'Classes',
     pricing: 'Pricing',
     coach: 'The coach',
@@ -94,23 +94,24 @@ export default {
     seo: {
       title: 'Gym in Berrechid, Morocco — Fitness Hamouchi Gym',
       description:
-        'Two fully equipped gyms in Berrechid: weight training, cross training, cardio, boxing and women’s fitness. Qualified coaches, open 7 days a week. First session free.',
+        'A fully equipped gym in Berrechid: weight training, cardio and kickboxing for adults and children. Qualified coaches, open 7 days a week. First session free.',
       targets: [
         'gym berrechid',
         'gym in berrechid morocco',
         'fitness berrechid',
         'weight training berrechid',
         'personal trainer berrechid',
-        'women only gym berrechid',
+        'kickboxing berrechid',
+        'kids kickboxing berrechid',
       ],
     },
     hero: {
-      kicker: 'Berrechid · Two clubs · Open 7 days',
+      kicker: 'Berrechid · Weights · Kickboxing · Open 7 days',
       titleLines: ['Become', 'the strongest', 'version', 'of yourself'],
       lead:
-        'Weight training, cross training, cardio and boxing across two fully equipped gyms in Berrechid. Coaches who fix your technique, a programme built around you, and a room you actually want to come back to.',
+        'Weight training, cardio and kickboxing in a fully equipped gym in Berrechid. Coaches who fix your technique, a programme built around you, and a room you actually want to come back to.',
       primaryCta: 'Book my free session',
-      secondaryCta: 'See the clubs',
+      secondaryCta: 'See the gym',
       scrollHint: 'Scroll to explore',
     },
     stats: {
@@ -124,14 +125,14 @@ export default {
       kicker: 'Who we are',
       title: 'A neighbourhood gym held to competition standards',
       body: [
-        'Fitness Hamouchi Gym started in Berrechid from a simple idea: you should not have to drive to Casablanca to train seriously. Two clubs, equipment we replace when it wears out, and coaches who stand on the training floor — not behind the front desk.',
+        'Fitness Hamouchi Gym started in Berrechid from a simple idea: you should not have to drive to Casablanca to train seriously. One complete gym, equipment we replace when it wears out, and coaches who stand on the training floor — not behind the front desk.',
         'Whether you have been lifting for ten years or have never set foot in a gym, we start where you are. We show you the movements, watch your positions, and adjust as you go.',
       ],
       bullets: [
         'Free assessment and personal programme when you join',
         'A coach on the floor during every opening hour',
         'No hidden joining fees, no forced commitment',
-        'Dedicated women’s area and time slots',
+        'Coached kickboxing, for adults and for children',
       ],
       cta: 'Meet the team',
     },
@@ -141,16 +142,16 @@ export default {
       lead: 'Five coached disciplines, all included in your membership. Switch whenever you like, combine them however you like.',
     },
     clubs: {
-      kicker: 'Our locations',
-      title: 'Two clubs in Berrechid',
+      kicker: 'Our location',
+      title: 'Our gym in Berrechid',
       lead:
-        'Each club has its own character and equipment. Your membership covers the one you choose — ask us about access to both.',
+        'A full weights floor, a cardio zone and a matted kickboxing area. Come and see it: the first session is on us.',
     },
     coach: {
       kicker: 'Coaching',
       title: 'You never train alone',
       body: [
-        'Khalid Hamouchi has been coaching in Berrechid for over ten years. He built both clubs around one conviction: a good coach does not count your reps, he fixes the movement before the injury arrives.',
+        'Khalid Hamouchi has been coaching in Berrechid for over ten years. He built the gym around one conviction: a good coach does not count your reps, he fixes the movement before the injury arrives.',
         'The team follows the same rule. If your form breaks down on a deadlift, someone will come and tell you — politely, but they will come.',
       ],
       cta: 'More about the team',
@@ -189,101 +190,67 @@ export default {
       tagline: 'Strength, size, definition',
       short: 'Free weights, guided machines, and a floor big enough that you never queue.',
       description:
-        'The core of both clubs. Squat racks, adjustable benches, dumbbells up into the heavy end, cables and guided machines for every muscle group. A coach walks the floor to fix positions and set your loads.',
+        'The heart of the gym. Racks, adjustable benches, dumbbells up into the heavy end, cables and guided machines for every muscle group. A coach walks the floor to fix positions and set your loads.',
       bullets: [
-        'Enough racks, benches and olympic bars to go around',
-        'Dumbbells in 2 kg steps up to heavy loads',
+        'Enough racks, benches and bars to go around',
+        'Dumbbells stepping up to heavy loads',
         'A bulking or cutting programme depending on your goal',
-        'Loads and measurements tracked every month',
+        'Loads and measurements tracked',
       ],
       image: 'discipline-musculation',
       level: 'All levels',
       duration: 'Open access',
     },
     {
-      slug: 'cross-training',
-      name: 'Cross training',
-      tagline: 'Intense, varied, never the same twice',
-      short: 'Full-body conditioning in short, hard circuits.',
-      description:
-        'Sessions that blend weightlifting, gymnastics and cardio into a timed format. Every movement has a scaled version, so a beginner and an athlete can do the same session side by side at their own level.',
-      bullets: [
-        'Coached sessions in small groups',
-        'Kettlebells, ropes, tyres, rings and boxes',
-        'Every movement scaled to your level',
-        'Excellent for fat loss and conditioning',
-      ],
-      image: 'discipline-cross-training',
-      level: 'Scaled for everyone',
-      duration: '60 min',
-    },
-    {
       slug: 'cardio',
-      name: 'Cardio',
+      name: 'Cardio & fitness',
       tagline: 'Conditioning, endurance, fat loss',
-      short: 'Treadmills, bikes, rowers and ellipticals — with protocols that actually work.',
+      short: 'Treadmills, bikes and ellipticals — with protocols that actually work.',
       description:
         'A complete cardio zone and, more importantly, someone to tell you what to do in it. Walking for an hour while looking at your phone burns very little; we give you short, effective interval protocols instead.',
       bullets: [
-        'Treadmills, bikes, rowers, ellipticals',
+        'Treadmills, bikes and ellipticals',
         'HIIT and base endurance protocols',
-        'Progress tracked by heart rate',
         'Ideal alongside weight training',
+        'Progress measured, not improvised',
       ],
       image: 'discipline-cardio',
       level: 'All levels',
       duration: 'Open access',
     },
     {
-      slug: 'boxe',
-      name: 'Boxing & combat sports',
-      tagline: 'Technique, reflexes, confidence',
-      short: 'Bags, pads and technical work under a coach’s eye.',
+      slug: 'kickboxing',
+      name: 'Kickboxing',
+      tagline: 'Technique, power, confidence',
+      short: 'Technical work, bag work and footwork under a coach’s eye.',
       description:
-        'Footwork, combinations, bag work and pads. You learn to punch cleanly before you punch hard — that is how you progress without wrecking your wrists and shoulders.',
+        'Footwork, hand-and-kick combinations, bag work and specific conditioning. You learn to strike cleanly before you strike hard — that is how you progress without wrecking your wrists and ankles.',
       bullets: [
-        'Heavy bags, speed balls, focus pads',
-        'Technical work and movement',
+        'Hand and kick technique, and movement',
+        'Bag work and pad work',
         'Combat-specific conditioning',
         'No experience needed to start',
       ],
-      image: 'discipline-boxe',
+      image: 'discipline-kickboxing',
       level: 'Beginner to advanced',
       duration: '60 min',
     },
     {
-      slug: 'fitness-femmes',
-      name: 'Women’s fitness',
-      tagline: 'Your space, your slots, your pace',
-      short: 'Dedicated area and hours, female coaching, nobody staring.',
+      slug: 'kickboxing-enfants',
+      name: 'Kids’ kickboxing',
+      tagline: 'Discipline, respect, energy',
+      short: 'A kickboxing class built for children, structured and supervised throughout.',
       description:
-        'A lot of women want to train seriously without feeling watched. So there is a dedicated area and reserved time slots, with coaching that understands the specific goals — strength, toning, getting back in shape after pregnancy.',
+        'Children learn the technique, but above all they learn to respect the rules, to control themselves and to be confident. Sessions run on mats, in a group, supervised from start to finish and paced for their age.',
       bullets: [
-        'Dedicated women’s area and reserved slots',
-        'Female coaching',
-        'Strength, toning, return to fitness',
-        'Group aerobics and stretching classes',
+        'Sessions on mats, supervised throughout',
+        'Technique, coordination and motor skills',
+        'Discipline and respect before performance',
+        'A place where children burn off energy safely',
       ],
-      image: 'discipline-fitness-femmes',
-      level: 'All levels',
-      duration: '45–60 min',
-    },
-    {
-      slug: 'aerobic',
-      name: 'Aerobics & group classes',
-      tagline: 'Music, a group, good mood',
-      short: 'Group classes that fly by and still make you sweat.',
-      description:
-        'Aerobics, step, stretching and conditioning to music. The group format has one advantage nothing else replaces: you turn up because the group is waiting for you.',
-      bullets: [
-        'Several classes every week',
-        'Aerobics, step, stretching, conditioning',
-        'Included in every membership',
-        'Motivating group atmosphere',
-      ],
-      image: 'discipline-aerobic',
-      level: 'All levels',
-      duration: '45 min',
+      image: 'discipline-kickboxing-enfants',
+      level: 'Children',
+      duration: '60 min',
     },
     {
       slug: 'coaching-personnel',
@@ -307,16 +274,10 @@ export default {
   amenities: {
     musculation: 'Weights floor',
     cardio: 'Cardio zone',
-    crossTraining: 'Cross training area',
-    fitnessFemmes: 'Women’s area',
-    aerobic: 'Group class studio',
+    kickboxing: 'Kickboxing area',
     coaching: 'Personal training',
     vestiaires: 'Changing rooms',
-    douches: 'Hot showers',
-    parking: 'Parking',
-    wifi: 'Free Wi-Fi',
-    climatisation: 'Air conditioning',
-    boutique: 'Shop & supplements',
+    douches: 'Showers',
   },
 
   plans: {
@@ -376,25 +337,25 @@ export default {
       seo: {
         title: 'Our gyms in Berrechid',
         description:
-          'The two Fitness Hamouchi clubs in Berrechid: addresses, opening hours, equipment and the disciplines taught at each gym. Open 7 days a week.',
+          'Fitness Hamouchi Gym in Berrechid, formerly Club Nour: address, opening hours, equipment and disciplines. Open 7 days a week.',
       },
       titlePattern: '{name} — Gym in {city}',
       descPattern:
         '{name}: address, opening hours, equipment and the disciplines taught at this gym in {city}. Open 7 days a week, first session free.',
       kicker: 'Our locations',
-      title: 'Two clubs, one standard',
-      lead: 'Pick whichever is closer to you. Both are equipped for weights and cardio, each with its own speciality.',
+      title: 'One gym, one standard',
+      lead: 'Weights, cardio and kickboxing in one place in Berrechid. Formerly Club Nour — same address, same team, new name.',
     },
     disciplines: {
       seo: {
-        title: 'Classes: weights, cross training, boxing',
+        title: 'Classes: weights, cardio, kickboxing',
         description:
-          'Weight training, cross training, cardio, boxing, women’s fitness and aerobics in Berrechid. Every discipline is included in your membership.',
+          'Weight training, cardio, and kickboxing for adults and children in Berrechid. Every discipline is included in your membership.',
       },
       kicker: 'Disciplines',
       title: 'Everything is included in your membership',
       lead:
-        'Seven ways to train with us, and none of them costs extra. Switch discipline whenever you want, combine them if that suits you.',
+        'Five ways to train with us, and none of them costs extra. Switch discipline whenever you want, combine them if that suits you.',
     },
     pricing: {
       seo: {
@@ -460,7 +421,7 @@ export default {
       seo: {
         title: 'Photo gallery of our gyms',
         description:
-          'Photos of our two gyms in Berrechid: weights floor, cardio zone, cross training area, changing rooms and group classes.',
+          'Photos of our gym in Berrechid: weights floor, cardio zone, kickboxing area and the children’s classes.',
       },
       kicker: 'In pictures',
       title: 'Our clubs in photos',
@@ -470,7 +431,7 @@ export default {
       seo: {
         title: 'Contact and directions',
         description:
-          'Contact Fitness Hamouchi Gym in Berrechid: phone, WhatsApp, addresses of both clubs, opening hours and directions.',
+          'Contact Fitness Hamouchi Gym in Berrechid: phone, WhatsApp, address, opening hours and directions.',
       },
       kicker: 'Contact',
       title: 'Come and see us, or write',
@@ -522,8 +483,12 @@ export default {
 
   faq: [
     {
-      q: 'Where are your gyms in Berrechid?',
-      a: 'We have two clubs in Berrechid: Fitness Hamouchi Gym and Club Nour. Both addresses, with directions and opening hours, are on the Our clubs page. Call us if you are not sure which one is closer to you.',
+      q: 'Where is your gym in Berrechid?',
+      a: 'Fitness Hamouchi Gym is in Berrechid. The exact address, directions and opening hours are on the Contact page. Call us or message us on WhatsApp if you need help finding us.',
+    },
+    {
+      q: 'Is this the old Club Nour?',
+      a: 'Yes. The gym used to trade as Club Nour and is now Fitness Hamouchi Gym: same address, same team, new name. If you knew us under the old name, you are in the right place.',
     },
     {
       q: 'Is the first session really free?',
@@ -531,27 +496,23 @@ export default {
     },
     {
       q: 'How much does a membership cost?',
-      a: 'All our prices are published on the Pricing page: single session, monthly, quarterly and annual. There is no joining fee and no admin fee, and group classes are included in every membership.',
+      a: 'All our prices are published on the Pricing page: single session, monthly, quarterly and annual. There is no joining fee and no admin fee.',
     },
     {
       q: 'Do I need experience to start?',
       a: 'No, and most of our new members do not have any. When you join, a coach assesses your level, shows you the basic movements and gives you a written programme matched to the number of sessions you can do each week.',
     },
     {
-      q: 'Is there a women-only area?',
-      a: 'Yes. We have a dedicated area and reserved time slots for women, with female coaching. Group aerobics and conditioning classes are also scheduled in those slots.',
+      q: 'Do you run kickboxing classes for children?',
+      a: 'Yes. The children’s classes run on mats, in a group and supervised throughout. They cover technique and coordination, and above all discipline and respect. Contact us for the timetable and the minimum age.',
     },
     {
       q: 'What are your opening hours?',
       a: 'We open Monday to Friday from 6am to 11pm, Saturday from 8am to 10pm and Sunday from 9am to 2pm. Hours may change during Ramadan — we announce them on Instagram and Facebook.',
     },
     {
-      q: 'Do you offer personal training?',
-      a: 'Yes, as one-to-one sessions with a written programme, nutrition advice and measurement tracking. It is the right option for a specific goal with a date on it, such as significant weight loss or a return after injury.',
-    },
-    {
       q: 'What should I bring to train?',
-      a: 'Sports clothes, a clean pair of trainers kept for the gym, a towel and a water bottle. Changing rooms, lockers and hot showers are included in your membership.',
+      a: 'Sports clothes, a clean pair of trainers kept for the gym, a towel and a water bottle. Changing rooms and showers are included in your membership.',
     },
   ],
 
@@ -582,7 +543,7 @@ export default {
 
 <h2>4. The hours, honestly</h2>
 <p>Check the opening time and, more importantly, the real closing time — some gyms start switching lights off twenty minutes before the posted hour. If you work shifts, this is the criterion that decides whether you come three times a week or twice a month.</p>
-<p>Both our clubs open at 6am on weekdays and close at 11pm for exactly this reason. Detailed hours for each club are on the {{clubs}} page.</p>
+<p>We open at 6am on weekdays and close at 11pm for exactly this reason. Detailed hours are on the {{clubs}} page.</p>
 
 <h2>5. What the price actually includes</h2>
 <p>A 200-dirham membership that bills group classes separately costs more than an all-inclusive one at 250. Ask the questions in order: joining fee, admin fee, group classes, access to other locations, starting assessment.</p>
@@ -699,7 +660,7 @@ export default {
   ],
 
   footer: {
-    tagline: 'Two gyms in Berrechid. Weight training, cross training, cardio, boxing and women’s fitness.',
+    tagline: 'A gym in Berrechid, formerly Club Nour. Weight training, cardio and kickboxing, for adults and children.',
     builtNote: 'Gym in Berrechid, Casablanca-Settat region, Morocco.',
   },
 };

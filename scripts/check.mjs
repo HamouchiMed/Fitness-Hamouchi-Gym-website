@@ -241,7 +241,11 @@ async function main() {
   }
 
   // ---- Well-known files --------------------------------------------------
-  for (const f of ['sitemap.xml', 'robots.txt', 'manifest.webmanifest', 'favicon.svg', '404.html']) {
+  for (const f of [
+    'sitemap.xml', 'robots.txt', 'manifest.webmanifest', '404.html',
+    // Icons, all rendered from the logo artwork by scripts/media.mjs.
+    'favicon.ico', 'icon-192.png', 'icon-512.png', 'icon-maskable-512.png', 'apple-touch-icon.png',
+  ]) {
     if (!(await exists(join(DIST, f)))) add('/', `missing ${f}`);
   }
 

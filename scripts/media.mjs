@@ -47,6 +47,18 @@ const IMG = join(ROOT, 'src', 'assets', 'img');
 const SOURCE = join(IMG, 'source');
 const VIDEO = join(ROOT, 'src', 'assets', 'video');
 const PUBLIC = join(ROOT, 'public');
+const BRAND = join(ROOT, 'brand');
+
+/**
+ * The logo master: the supplied artwork with its white background removed and
+ * trimmed, kept transparent. `brand/logo-original.jpg` beside it is the
+ * untouched file as delivered, so this can always be regenerated.
+ */
+const LOGO_MASTER = join(BRAND, 'logo-full.png');
+
+/** Widths generated for the logo. It renders at ~46px in the header, ~110px
+ *  in the footer and ~200px in the preloader, so 640 covers every case at 3x. */
+const LOGO_WIDTHS = [160, 320, 640];
 
 const args = process.argv.slice(2);
 const FORCE = args.includes('--force');
@@ -73,9 +85,11 @@ const exists = async (p) => {
  * than a grey box with a cross through it.
  */
 const TONES = {
-  ember: { glow: '#ff6a2b', mid: '#8c1f14', base: '#0b0608' },
-  dark: { glow: '#5c7694', mid: '#1d2a3a', base: '#07080b' },
-  sand: { glow: '#d8b183', mid: '#6b4e33', base: '#0b0907' },
+  // Sampled from the logo's own gold gradient (#FAC60E → #A87703), so the
+  // placeholders sit in the same family as the brand instead of fighting it.
+  ember: { glow: '#f0ac10', mid: '#7a5406', base: '#0b0906' },
+  dark: { glow: '#8a8f99', mid: '#23262c', base: '#07080a' },
+  sand: { glow: '#d8b887', mid: '#6b5533', base: '#0b0906' },
 };
 
 /**
@@ -247,14 +261,130 @@ async function findSource(name) {
 // ─────────────────────────────────────────────────────────────────────────────
 
 /**
- * Generates the favicon and PWA icons from primitives — a rounded square with
- * the brand gradient and a dumbbell cut out of it.
+ * Responsive logo files.
  *
- * The maskable variant keeps the glyph inside the inner 80% safe zone, because
- * Android crops maskable icons to a circle on some launchers.
+ * The logo deliberately bypasses the photo pipeline above. That pipeline
+ * crops to a fixed aspect ratio and emits a JPEG fallback — both of which are
+ * wrong here: cropping would clip the barbell, and JPEG has no alpha channel,
+ * so the transparent background would come out as a white box on a near-black
+ * header.
+ *
+ * So: PNG and WebP only, no crop, alpha preserved.
+ */
+async function makeLogo() {
+  if (!(await exists(LOGO_MASTER))) {
+    console.log(`  ! ${LOGO_MASTER.replace(ROOT + '/', '')} not found — skipping logo.`);
+    return 0;
+  }
+
+  for (const width of LOGO_WIDTHS) {
+    const common = [LOGO_MASTER, '-resize', `${width}x`, '-strip'];
+    // -background none keeps the alpha channel through the resize.
+    await run('convert', [...common, '-background', 'none', join(IMG, `logo-${width}.png`)]);
+    await run('convert', [
+      ...common,
+      '-background', 'none',
+      '-define', 'webp:lossless=false',
+      '-quality', '90',
+      join(IMG, `logo-${width}.webp`),
+    ]);
+  }
+  return LOGO_WIDTHS.length;
+}
+
+/**
+ * The Open Graph share card: the logo centred on the brand background.
+ *
+ * Built at exactly 1200×630 because WhatsApp, Facebook and Messenger all crop
+ * anything else unpredictably, and WhatsApp is how most of this audience will
+ * share the link.
+ */
+async function makeOgCard() {
+  if (!(await exists(LOGO_MASTER))) return false;
+
+  const W = 1200;
+  const H = 630;
+  await run('convert', [
+    '-size', `${W}x${H}`,
+    'radial-gradient:#1c1a16-#08080b',
+    // A warm floor glow picked from the logo's own gold, so the card reads as
+    // one object rather than a logo pasted onto a dark rectangle.
+    '(', '-size', `${W}x${H}`, 'xc:none',
+    '-fill', 'rgba(250,198,14,0.16)', '-draw', `ellipse ${W / 2},${H + 60} ${W * 0.45},180 0,360`,
+    '-blur', '0x55', ')',
+    '-compose', 'over', '-composite',
+    '(', LOGO_MASTER, '-resize', `x${Math.round(H * 0.74)}`, ')',
+    '-gravity', 'center', '-compose', 'over', '-composite',
+    '-strip', '-quality', '88',
+    join(IMG, `og-default-${FALLBACK_WIDTH}.jpg`),
+  ]);
+
+  // The responsive widths the template may also reference.
+  for (const width of widthsFor('og-default')) {
+    await run('convert', [
+      join(IMG, `og-default-${FALLBACK_WIDTH}.jpg`),
+      '-resize', `${width}x`, '-strip', '-quality', '86',
+      join(IMG, `og-default-${width}.jpg`),
+    ]);
+    await run('convert', [
+      join(IMG, `og-default-${FALLBACK_WIDTH}.jpg`),
+      '-resize', `${width}x`, '-strip', '-quality', '84',
+      join(IMG, `og-default-${width}.webp`),
+    ]);
+  }
+  return true;
+}
+
+/**
+ * Generates the favicon and PWA icons from the logo.
+ *
+ * The logo is detailed, so it is placed on the brand background with padding
+ * rather than cropped — a tight crop of a mascot illustration turns to mush
+ * below about 48px, while the full badge still reads as a distinct gold shape.
+ *
+ * The maskable variant keeps the artwork inside the inner 80% safe zone,
+ * because Android crops maskable icons to a circle on some launchers.
  */
 async function makeIcons() {
   await mkdir(PUBLIC, { recursive: true });
+
+  if (await exists(LOGO_MASTER)) {
+    const fromLogo = async ({ size, out, maskable = false, radiusRatio = 0.22 }) => {
+      const r = Math.round(size * (maskable ? 0.5 : radiusRatio));
+      // Maskable icons need the artwork well inside the safe zone; standard
+      // icons can sit closer to the edge.
+      const artScale = maskable ? 0.58 : 0.82;
+
+      await run('convert', [
+        '-size', `${size}x${size}`, 'xc:none',
+        // Rounded brand-dark tile
+        '(', '-size', `${size}x${size}`, 'xc:#0c0b09',
+        '(', '-size', `${size}x${size}`, 'xc:black', '-fill', 'white', '-stroke', 'none',
+        '-draw', `roundrectangle 0,0 ${size - 1},${size - 1} ${r},${r}`, ')',
+        '-alpha', 'off', '-compose', 'copy_opacity', '-composite', ')',
+        '-gravity', 'center', '-compose', 'over', '-composite',
+        // Logo on top
+        '(', LOGO_MASTER, '-resize', `${Math.round(size * artScale)}x${Math.round(size * artScale)}`, ')',
+        '-gravity', 'center', '-compose', 'over', '-composite',
+        '-strip', out,
+      ]);
+    };
+
+    await fromLogo({ size: 512, out: join(PUBLIC, 'icon-512.png') });
+    await fromLogo({ size: 192, out: join(PUBLIC, 'icon-192.png') });
+    await fromLogo({ size: 512, out: join(PUBLIC, 'icon-maskable-512.png'), maskable: true });
+    await fromLogo({ size: 180, out: join(PUBLIC, 'apple-touch-icon.png') });
+    await fromLogo({ size: 64, out: join(PUBLIC, '.ico-64.png') });
+    await fromLogo({ size: 32, out: join(PUBLIC, '.ico-32.png') });
+    await fromLogo({ size: 16, out: join(PUBLIC, '.ico-16.png') });
+    await run('convert', [
+      join(PUBLIC, '.ico-16.png'), join(PUBLIC, '.ico-32.png'), join(PUBLIC, '.ico-64.png'),
+      join(PUBLIC, 'favicon.ico'),
+    ]);
+    return 4;
+  }
+
+  // Fallback, used only if the logo master is missing.
 
   /**
    * One icon: a rounded square filled with the brand gradient, with the
@@ -491,6 +621,10 @@ image from the app.
     }
   }
 
+  // The logo runs after the placeholders on purpose: makeOgCard overwrites the
+  // generated og-default placeholder with the real branded share card.
+  const logos = await makeLogo();
+  const ogCard = await makeOgCard();
   const icons = await makeIcons();
   const video = await makeHeroVideo();
 
@@ -519,7 +653,7 @@ image from the app.
   console.log('');
   console.log(`  ${green(`${real} real photo${real === 1 ? '' : 's'}`)}, ${cyan(
     `${placeholder} placeholder${placeholder === 1 ? '' : 's'}`
-  )}, ${icons} icon sizes${video ? ', hero video' : ''}`);
+  )}, ${logos} logo sizes, ${icons} icon sizes${ogCard ? ', share card' : ''}${video ? ', hero video' : ''}`);
 
   if (strays.length) {
     const yellow = (s) => `\u001b[33m${s}\u001b[0m`;

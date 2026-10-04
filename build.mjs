@@ -610,7 +610,7 @@ ${items}
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Web manifest + favicon
+// Web manifest
 // ─────────────────────────────────────────────────────────────────────────────
 
 async function writeManifest(contents) {
@@ -635,25 +635,6 @@ async function writeManifest(contents) {
   await writeFile(join(DIST, 'manifest.webmanifest'), JSON.stringify(manifest, null, 2), 'utf8');
 }
 
-/** Inline SVG favicon — sharp at any size, and a single tiny file. */
-async function writeFavicon() {
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <defs>
-    <linearGradient id="g" x1="0" y1="0" x2="64" y2="64">
-      <stop stop-color="#ff7a3d"/><stop offset="1" stop-color="#e02f2f"/>
-    </linearGradient>
-  </defs>
-  <rect width="64" height="64" rx="16" fill="#08080b"/>
-  <rect x="4" y="4" width="56" height="56" rx="13" fill="url(#g)"/>
-  <g stroke="#0a0a0c" stroke-linecap="round" fill="none">
-    <path d="M19 23v18M45 23v18" stroke-width="5.5"/>
-    <path d="M19 32h26" stroke-width="5"/>
-    <path d="M12 27v10M52 27v10" stroke-width="3.6"/>
-  </g>
-</svg>
-`;
-  await writeFile(join(DIST, 'favicon.svg'), svg, 'utf8');
-}
 
 /**
  * Redirect stubs for the /fr/ prefix.
@@ -805,7 +786,6 @@ async function main() {
   await writeSitemap(allPages);
   await writeRobots();
   await writeManifest(contents);
-  await writeFavicon();
 
   // Assets
   const assetCount = await copyTree(join(SRC, 'assets'), join(DIST, 'assets'));

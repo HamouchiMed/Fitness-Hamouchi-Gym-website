@@ -88,27 +88,44 @@
 
 :root {
   /* ---- Colour ---------------------------------------------------------- */
-  /* A near-black base rather than pure #000: pure black against bright accent
-     colours produces harsh haloing on OLED phones, which is most of this
-     audience. */
-  --ink: #08080b;
-  --ink-1: #0c0c11;
-  --ink-2: #121219;
-  --ink-3: #1b1b24;
-  --line: #24242f;
-  --line-soft: #1a1a23;
+  /*
+     The palette is taken from the logo: gold, black and white.
+     Sampled directly from its gradient — #FAC60E at the brightest through
+     #D9A505 to #A87703 in the shadows.
 
-  --bone: #f3f0ea;
-  --bone-dim: #b9b5ad;
-  --muted: #8b8780;
+     The base is a near-black warmed very slightly towards brown (#090908
+     rather than a blue-grey #08080b) so it sits under gold without the two
+     looking like they came from different brands. Pure #000 is avoided
+     because bright gold on pure black haloes badly on the OLED phones most of
+     this audience uses.
 
-  --ember: #ff7a3d;
-  --blood: #e02f2f;
-  --accent: var(--ember);
+     To go back to the previous orange/red scheme, or to move to any other
+     brand colour, change --gold / --gold-deep / --gold-dark and the two
+     gradients below. Nothing else in the stylesheet hard-codes an accent.
+  */
+  --ink: #09090a;
+  --ink-1: #0f0e0c;
+  --ink-2: #16150f;
+  --ink-3: #201d16;
+  --line: #2b2721;
+  --line-soft: #1c1a16;
+
+  --bone: #f5f2ea;
+  --bone-dim: #bdb8ac;
+  --muted: #8d887d;
+
+  --gold: #fac60e;
+  --gold-deep: #d9a505;
+  --gold-dark: #a87703;
+
+  /* Kept as aliases so every existing rule keeps working. */
+  --ember: var(--gold);
+  --blood: var(--gold-dark);
+  --accent: var(--gold);
   --accent-ink: #0a0a0c;
 
-  --grad-accent: linear-gradient(135deg, #ff8a4d 0%, #e02f2f 100%);
-  --grad-text: linear-gradient(100deg, #fff 0%, #ffd9c4 45%, #ff8a4d 100%);
+  --grad-accent: linear-gradient(135deg, #ffd54a 0%, #d99400 100%);
+  --grad-text: linear-gradient(100deg, #fff 0%, #ffe9a8 45%, #fac60e 100%);
 
   /* ---- Type ------------------------------------------------------------ */
   --font-display: 'Anton', 'Arial Narrow', Impact, sans-serif;
@@ -791,6 +808,30 @@ html[lang^='ar'] .marquee__item {
     border-color var(--dur) var(--ease-out);
   border-block-end: 1px solid transparent;
 }
+
+/*
+  Scrim behind the transparent header.
+
+  Over the hero photograph the nav, the language button and the phone icon sit
+  directly on whatever the image happens to be — and a gym interior is full of
+  bright lights and yellow walls. This gradient guarantees the contrast instead
+  of leaving it to the photo, and fades out entirely before the content starts.
+  It disappears once the header gains its solid background on scroll.
+*/
+.site-header::before {
+  content: '';
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: 0;
+  block-size: calc(var(--header-h) * 1.9);
+  background: linear-gradient(to bottom, rgb(9 9 10 / 0.85), rgb(9 9 10 / 0.45) 45%, transparent);
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity var(--dur) var(--ease-out);
+}
+.site-header.is-stuck::before {
+  opacity: 0;
+}
 /* Set by app.js once the page has scrolled past the hero. */
 .site-header.is-stuck {
   background: color-mix(in srgb, var(--ink) 82%, transparent);
@@ -813,35 +854,73 @@ html[lang^='ar'] .marquee__item {
   gap: var(--sp-5);
 }
 
+/* ---- Logo ---------------------------------------------------------------
+   The artwork contains the brand name, so there is no text wordmark beside it
+   — only the locality, separated by a hairline rule. */
 .logo {
   display: inline-flex;
   align-items: center;
   gap: var(--sp-3);
   flex: none;
 }
-.logo__mark svg {
-  inline-size: 2.25rem;
-  block-size: 2.25rem;
+.logo__img {
+  display: block;
+  flex: none;
 }
-.logo__text {
-  display: grid;
-  line-height: 1.1;
+.logo__img img {
+  display: block;
+  inline-size: auto;
+  block-size: 2.6rem;
+  /* A faint warm glow lifts the black outline of the badge off the near-black
+     header; without it the logo's outer edge disappears. */
+  filter: drop-shadow(0 1px 6px rgb(250 198 14 / 0.22));
+  transition: filter var(--dur) var(--ease-out), transform var(--dur) var(--ease-out);
 }
-.logo__name {
-  font-family: var(--font-display);
-  font-size: 1.05rem;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
+.logo:hover .logo__img img {
+  filter: drop-shadow(0 2px 12px rgb(250 198 14 / 0.4));
+  transform: translateY(-1px);
 }
-html[lang^='ar'] .logo__name {
-  font-weight: 900;
-  text-transform: none;
+@media (min-width: 600px) {
+  .logo__img img {
+    block-size: 2.9rem;
+  }
 }
-.logo__sub {
+
+.logo__place {
+  display: none;
+  padding-inline-start: var(--sp-3);
+  border-inline-start: 1px solid var(--line);
   font-size: 0.62rem;
+  font-weight: 700;
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--gold);
+  white-space: nowrap;
+}
+html[lang^='ar'] .logo__place {
+  letter-spacing: 0;
+  text-transform: none;
+  font-size: 0.72rem;
+}
+@media (min-width: 480px) {
+  .logo__place {
+    display: inline-block;
+  }
+}
+
+/* Larger lockups: footer and preloader show the logo at a size where its own
+   lettering is actually readable. */
+.logo--footer .logo__img img,
+.logo--loader .logo__img img {
+  block-size: auto;
+  inline-size: 100%;
+  filter: none;
+}
+.logo--footer {
+  inline-size: 9.5rem;
+}
+.logo--loader {
+  inline-size: min(52vw, 12rem);
 }
 
 .nav {
@@ -2982,18 +3061,6 @@ html[lang^='ar'] .site-footer__h {
   display: grid;
   gap: var(--sp-5);
   justify-items: center;
-}
-.loader__brand {
-  font-family: var(--font-display);
-  font-size: var(--fs-lg);
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--bone);
-}
-html[lang^='ar'] .loader__brand {
-  font-weight: 900;
-  letter-spacing: 0.06em;
-  text-transform: none;
 }
 .loader__bar {
   display: block;

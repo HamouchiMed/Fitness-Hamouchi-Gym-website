@@ -10,7 +10,7 @@
 import { site, locations, plans, currency, stats, testimonials, verified } from '../../data/site.mjs';
 import { path, asset } from '../../lib/urls.mjs';
 import { esc, each, formatHours } from '../../lib/util.mjs';
-import { heroVideo } from '../../data/media.mjs';
+import { heroVideo, images as mediaImages } from '../../data/media.mjs';
 import {
   picture, button, sectionHead, marquee, accordion, stat, checklist, icons, chip, rule,
 } from '../components.mjs';
@@ -112,7 +112,9 @@ function intro({ localeCode, content }) {
   <div class="wrap intro__grid">
     <div class="intro__media reveal">
       ${picture({
-        name: 'club-fitness-hamouchi-1',
+        // The gym's own first image, rather than a hard-coded slot name, so
+        // this keeps working if the location's photo set is reordered.
+        name: locations[0].images[0],
         alt: `${locations[0].name} — ${content.amenities.musculation}`,
         sizes: '(max-width: 900px) 100vw, 48vw',
         className: 'intro__img',
@@ -258,7 +260,11 @@ ${each(c.body, (p) => `      <p class="coachsec__p reveal">${esc(p)}</p>`)}
 /** Gallery strip with a link to the full page. */
 function gallery({ localeCode, content }) {
   const g = content.home.gallery;
-  const names = ['gallery-1', 'gallery-2', 'gallery-3', 'gallery-4'];
+  // First four gallery slots, read from the manifest rather than hard-coded.
+  const names = Object.keys(mediaImages)
+    .filter((n) => /^gallery-\d+$/.test(n))
+    .sort((a, b) => Number(a.split('-')[1]) - Number(b.split('-')[1]))
+    .slice(0, 4);
   return `<section class="gallerystrip section">
   <div class="wrap">
     ${sectionHead({ kicker: g.kicker, title: g.title, lead: g.lead })}
