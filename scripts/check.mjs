@@ -61,7 +61,67 @@ const attrOf = (html, re) => {
   return m ? m[1] : null;
 };
 
+/**
+ * Validates vercel.json against the properties Vercel's schema accepts.
+ *
+ * Vercel rejects unknown properties outright — a stray key fails the import
+ * with "should NOT have additional property", and because JSON has no comment
+ * syntax, the tempting fix (adding a `comment` field to explain a rule) is
+ * exactly what breaks it. Rationale for each rule lives in the README instead.
+ */
+async function checkVercelConfig() {
+  const file = join(ROOT, 'vercel.json');
+  if (!(await exists(file))) return;
+
+  let config;
+  try {
+    config = JSON.parse(await readFile(file, 'utf8'));
+  } catch (e) {
+    add('vercel.json', `does not parse: ${e.message}`);
+    return;
+  }
+
+  const TOP = new Set([
+    '$schema', 'buildCommand', 'devCommand', 'installCommand', 'ignoreCommand',
+    'outputDirectory', 'framework', 'cleanUrls', 'trailingSlash', 'redirects',
+    'rewrites', 'headers', 'routes', 'regions', 'functions', 'crons', 'images',
+    'public', 'git', 'rootDirectory',
+  ]);
+  const REDIRECT = new Set(['source', 'destination', 'permanent', 'statusCode', 'has', 'missing']);
+  const HEADER_RULE = new Set(['source', 'headers', 'has', 'missing']);
+  const HEADER_ENTRY = new Set(['key', 'value']);
+
+  for (const key of Object.keys(config)) {
+    if (!TOP.has(key)) add('vercel.json', `unknown top-level property "${key}" — Vercel will reject the import`);
+  }
+  (config.redirects || []).forEach((rule, i) => {
+    for (const key of Object.keys(rule)) {
+      if (!REDIRECT.has(key)) add('vercel.json', `redirects[${i}] has unsupported property "${key}"`);
+    }
+  });
+  (config.headers || []).forEach((rule, i) => {
+    for (const key of Object.keys(rule)) {
+      if (!HEADER_RULE.has(key)) add('vercel.json', `headers[${i}] has unsupported property "${key}"`);
+    }
+    (rule.headers || []).forEach((entry, j) => {
+      for (const key of Object.keys(entry)) {
+        if (!HEADER_ENTRY.has(key)) {
+          add('vercel.json', `headers[${i}].headers[${j}] has unsupported property "${key}"`);
+        }
+      }
+    });
+  });
+
+  // The build would still succeed with these wrong, but the deploy would serve
+  // the wrong directory.
+  if (config.outputDirectory && config.outputDirectory !== 'dist') {
+    add('vercel.json', `outputDirectory is "${config.outputDirectory}" but the build writes to dist/`);
+  }
+}
+
 async function main() {
+  await checkVercelConfig();
+
   if (!(await exists(DIST))) {
     console.error('\n  dist/ not found. Run `npm run build` first.\n');
     process.exitCode = 1;

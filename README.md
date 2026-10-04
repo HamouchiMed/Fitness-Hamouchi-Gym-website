@@ -176,8 +176,27 @@ That is the whole process. There is nothing to configure, because:
   you own a domain.
 - **No `npm install` is needed.** Zero dependencies, Node 18+.
 
-`vercel.json` handles clean URLs, trailing slashes, `/fr/*` → `/*` redirects,
-per-asset cache headers, and security headers.
+#### What `vercel.json` sets, and why
+
+Vercel validates this file strictly and **rejects any property it does not
+recognise** — including a `comment` field, which is the obvious thing to reach
+for given JSON has no comment syntax. So the reasoning lives here instead, and
+`npm run check` validates the file against the allowed property set so a stray
+key is caught locally rather than at import time.
+
+| Rule | Reason |
+|---|---|
+| `buildCommand` / `outputDirectory` | Overrides the "Other" framework preset, so no dashboard configuration is needed. |
+| `cleanUrls`, `trailingSlash` | Every page is written as `<path>/index.html`; this makes the served URLs match the canonical tags exactly. |
+| `/fr` → `/` redirects | French lives at the root. These keep any `/fr/...` link anyone has already shared working, as a 308. |
+| Fonts cached 1 year, immutable | Font filenames carry their version — they never change in place. |
+| Images, CSS, JS cached 1 hour | These paths are *not* fingerprinted, so a long cache would serve stale files after a rebuild. One hour means a photo swap goes live the same morning. |
+| Vendor, video cached 1 day | Change rarely, but not never. |
+| `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options`, `Permissions-Policy`, `HSTS` | Standard hardening. The permissions policy denies camera, microphone and geolocation outright, since nothing on the site uses them. |
+
+There is deliberately **no Content-Security-Policy**. The site loads nothing
+from third parties, so one would add little — and adding analytics later means
+editing the CSP too, where a mistake silently breaks the page.
 
 #### Connecting your own domain
 
