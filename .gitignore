@@ -37,3 +37,6 @@ Thumbs.db
 .env
 .env.local
 .vercel
+
+# Local screenshots for review — not part of the site.
+.preview/
