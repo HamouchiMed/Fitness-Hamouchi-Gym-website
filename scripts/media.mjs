@@ -494,6 +494,24 @@ image from the app.
   const icons = await makeIcons();
   const video = await makeHeroVideo();
 
+  // Files sitting in source/ that match no slot. Without this, dropping in a
+  // folder of camera files (IMG_2847.jpg) appears to do nothing at all — the
+  // pipeline matches on filename, so an unrecognised name is silently skipped
+  // and you are left wondering why the site still shows placeholders.
+  const strays = [];
+  try {
+    for (const entry of await readdir(SOURCE, { withFileTypes: true })) {
+      if (!entry.isFile()) continue;
+      const base = entry.name.replace(/\.[^.]+$/, '');
+      const ext = entry.name.slice(base.length + 1);
+      if (entry.name === 'README.txt') continue;
+      if (!SOURCE_EXTS.includes(ext)) continue;
+      if (!images[base]) strays.push(entry.name);
+    }
+  } catch {
+    /* source/ may not exist yet */
+  }
+
   const dim = (s) => `\u001b[2m${s}\u001b[0m`;
   const cyan = (s) => `\u001b[36m${s}\u001b[0m`;
   const green = (s) => `\u001b[32m${s}\u001b[0m`;
@@ -502,6 +520,15 @@ image from the app.
   console.log(`  ${green(`${real} real photo${real === 1 ? '' : 's'}`)}, ${cyan(
     `${placeholder} placeholder${placeholder === 1 ? '' : 's'}`
   )}, ${icons} icon sizes${video ? ', hero video' : ''}`);
+
+  if (strays.length) {
+    const yellow = (s) => `\u001b[33m${s}\u001b[0m`;
+    console.log('');
+    console.log(yellow(`  ${strays.length} file(s) in source/ match no image slot and were ignored:`));
+    for (const f of strays.slice(0, 20)) console.log(yellow(`    ! ${f}`));
+    if (strays.length > 20) console.log(dim(`    … and ${strays.length - 20} more`));
+    console.log(dim('    Rename each to one of the slot names listed below (keep the extension).'));
+  }
 
   if (stillPlaceholder.length) {
     console.log('');
