@@ -95,7 +95,7 @@ export const images = {
   'discipline-musculation': { ratio: [3, 4], maxWidth: 1100, tone: 'ember', label: 'Musculation', note: 'Someone lifting. Portrait.' },
   'discipline-cardio': { ratio: [3, 4], maxWidth: 1100, tone: 'dark', label: 'Cardio', note: 'Treadmills or bikes in use. Portrait.' },
   'discipline-kickboxing': { ratio: [3, 4], maxWidth: 1100, tone: 'ember', label: 'Kickboxing', note: 'Kickboxing training. Portrait.' },
-  'discipline-kickboxing-enfants': { ratio: [3, 4], maxWidth: 1100, tone: 'sand', label: 'Kickboxing enfants', note: 'The children\'s class. Portrait. Get parents\' permission before publishing.' },
+  'discipline-kickboxing-enfants': { ratio: [3, 4], maxWidth: 1100, tone: 'sand', label: 'Kickboxing enfants', note: 'The children\'s class. Portrait. The child currently shown is the owner\'s brother, cleared by the family. Any REPLACEMENT showing a different, identifiable child needs that child\'s parents\' permission first.' },
   'discipline-coaching': { ratio: [3, 4], maxWidth: 1100, tone: 'ember', label: 'Coaching', note: 'A coach working with a member. Portrait.' },
 
   // ── People ──────────────────────────────────────────────────────────────
@@ -104,7 +104,7 @@ export const images = {
     maxWidth: 1100,
     tone: 'dark',
     label: 'Coach',
-    note: 'Portrait of the head coach, square crop. A real face raises trust more than any other single image.',
+    note: 'Khalid Hamouchi, square crop. Confirmed by the owner. A real face raises trust more than any other single image.',
   },
 
   // ── Gallery ─────────────────────────────────────────────────────────────
